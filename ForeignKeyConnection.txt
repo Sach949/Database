@@ -1,0 +1,84 @@
+﻿-- 2-Pair Table connection
+
+CREATE TABLE Customers(
+CID int primary key not null,
+CustomerName varchar(20),
+Contact varchar(10)
+); -- Parent table
+
+Create table Orders(
+order_Id int primary key not null,
+OrderedName varchar(25),
+Order_Date Date check(Order_Date>30-06-2024),
+Amount double check(Amount>1000)
+CustomerID int, foreign key(Cid) references Customers(CID)
+); -- child table
+
+-- inserting value
+insert into Customers values(10,'Sunil', 7894561237);
+insert into Customers values(20,'Ajith', 1236589000);
+insert into Customers values(30,'Abhay', 4578962000);
+insert into Customers values(40,'Sachin', 9789456123);
+insert into Customers values(50,'Suman', 7800551240);
+insert into Customers values(60,'Nidhi', 6331456478);
+insert into Customers values(70,'Nirmala', 9874561789);
+insert into Customers values(80,'Srinivas', 8004561239);
+insert into Customers values(90,'Urjit', 7089456103);
+insert into Customers values(100,'Nandan', 6709456180);
+
+insert into Orders values(1,'Blanket', '01-07-2024', 1200,20);
+insert into Orders values(1,'Mobile', '10-10-2024', 22000,90);
+insert into Orders values(1,'Water Purifier', '01-01-2025', 17000,100);
+insert into Orders values(1,'Charger', '21-12-2024', 1500,10);
+insert into Orders values(1,'Laptop', '11-08-2024', 70000,50);
+insert into Orders values(1,'Mobile Cover', '18-11-2024', 1100,70);
+
+
+
+-- 3 pair table connection
+
+create table Library(
+LID int primary key not null,
+Library_Name varchar(50),
+Location varchar(30)
+); -- parent table
+
+create table Books(
+BID int primary key not null,
+Book_Title varchar(70),
+Author varchar(50),
+Book_Count int,
+Library_Id int, foreign key(Lid) references Library(LID)
+); -- child table
+
+create table Readers(
+RID int primary key not null,
+Reader_Name varchar(30),
+Borrow_Date Date,
+return_Date date
+); -- grandchild table
+
+-- adding foreign key into Grandchild table from child table
+
+Alter table Readers add book_Id int;
+Alter table Readers add foreign key (Rid) references Books(BID);
+
+-- inserting value
+
+insert into Library values(11,'Akash Library', 'Delhi');
+insert into Library values(12,'L1 Library', 'Banglore');
+insert into Library values(13,'Allen Library', 'Mumbai');
+insert into Library values(14,'JNU Library', 'Delhi');
+insert into Library values(15,'StudyPoint', 'Chennai');
+
+insert into Books values(201,'Why Bharat Matters', 'S Jaishankar Prasad', 10,14);
+insert into Books values(202,'Godaan', 'Munshi Premchand', 7,12);
+insert into Books values(201,'Discovery of India', 'Pt Nehru', 12,15);
+insert into Books values(201,'Harry Potter', 'JK Rowling', 40,11);
+insert into Books values(201,'Charak Samhita', 'Maharishi Charak', 5,13);
+
+insert into Books values(101,'Anmol', '12-10-2023', '11-11-2023');
+insert into Books values(102,'Anuj', '28-02-2024', '31-03-2024');
+insert into Books values(103,'Kailash', '01-01-2025', '01-02-2025');
+insert into Books values(104,'Pritam', '19-08-2024', '18-09-2024');
+insert into Books values(105,'Lata', '15-12-2024', '14-01-2025');
